@@ -1,5 +1,6 @@
 package com.example.emicalculator;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,19 +8,19 @@ import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 
 
 public class MainActivity3 extends AppCompatActivity {
     private EditText principalEditText, interestRateEditText, loanTermEditText;
-    private RadioButton monthly, quarterly, halfYear, yearly;
     private int paymentFrequency;
-    private Button calculateBtn, listCalculationBtn, PreviousBtn;
-    private ArrayList<String> calculationList = new ArrayList<>();
+    private Button calculateBtn;
+    private final ArrayList<String> calculationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +30,14 @@ public class MainActivity3 extends AppCompatActivity {
         principalEditText = findViewById(R.id.etAmount);
         interestRateEditText = findViewById(R.id.etInterestRate);
         loanTermEditText = findViewById(R.id.etYear);
-        RadioGroup frequencyRadioGroup = findViewById(R.id.radioGroup);
-        monthly = findViewById(R.id.monthlyRadioBtn);
-        quarterly = findViewById(R.id.quarterlyRadioBtn);
-        halfYear = findViewById(R.id.halfYearlyRadioBtn);
-        yearly = findViewById(R.id.yearlyRadioBtn);
+        findViewById(R.id.radioGroup);
+        findViewById(R.id.monthlyRadioBtn);
+        findViewById(R.id.quarterlyRadioBtn);
+        findViewById(R.id.halfYearlyRadioBtn);
+        findViewById(R.id.yearlyRadioBtn);
         calculateBtn = findViewById(R.id.btnCalculate);
-        PreviousBtn = findViewById(R.id.PreviousBtn);
-        listCalculationBtn = findViewById(R.id.listCalculation_Btn);
+        Button previousBtn = findViewById(R.id.PreviousBtn);
+        Button listCalculationBtn = findViewById(R.id.listCalculation_Btn);
         calculateBtn.setEnabled(false);
         RadioGroup paymentFrequencyRadioGroup = findViewById(R.id.radioGroup);
         paymentFrequencyRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -50,12 +51,12 @@ public class MainActivity3 extends AppCompatActivity {
             } else if (checkedId == R.id.halfYearlyRadioBtn) {
                 calculateBtn.setBackgroundColor(getResources().getColor(R.color.cyan));
             } else if (checkedId == R.id.yearlyRadioBtn) {
-                calculateBtn.setBackgroundColor(getResources().getColor(R.color.goldenYellow));
+                calculateBtn.setBackgroundColor(getResources().getColor(R.color.darkCyan));
             }
             calculateBtn.setEnabled(true);
         });
 
-        PreviousBtn.setOnClickListener(v -> {
+        previousBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity3.this, MainActivity.class);
             startActivity(intent);
         });
@@ -76,7 +77,7 @@ public class MainActivity3 extends AppCompatActivity {
             double emi = calculateEmi(principal, interestRate, loanTerm);
             double totalPayment = emi * loanTerm * paymentFrequency;
             double interestPayable = totalPayment - principal;
-            String resultText = String.format("EMI: %.2f\nInterest Payable: %.2f\nTotal Payment: %.2f", emi, interestPayable, totalPayment);
+            @SuppressLint("DefaultLocale") String resultText = String.format("EMI: %.2f\nInterest Payable: %.2f\nTotal Payment: %.2f", emi, interestPayable, totalPayment);
             TextView tvResult = findViewById(R.id.tvResult);
             tvResult.setText(resultText);
             String LoanTerms = "";
@@ -89,7 +90,7 @@ public class MainActivity3 extends AppCompatActivity {
             } else if (selectedId == R.id.yearlyRadioBtn) {
                 LoanTerms = "Yearly";
             }
-            String calculationDetails = String.format("Principal: %.2f\nInterest Rate: %.2f\nLoan Term: %d\nEMI: %.2f\nInterest Payable: %.2f\nTotal Payment: %.2f\nLoan Terms: %s",
+            @SuppressLint("DefaultLocale") String calculationDetails = String.format("Principal: %.2f\nInterest Rate: %.2f\nLoan Term: %d\nEMI: %.2f\nInterest Payable: %.2f\nTotal Payment: %.2f\nLoan Terms: %s",
                     principal, interestRate, loanTerm, emi, interestPayable, totalPayment, LoanTerms);
             saveCalculationDetails(calculationDetails);
             calculationList.add(calculationDetails);
@@ -115,8 +116,7 @@ public class MainActivity3 extends AppCompatActivity {
     public double calculateEmi(double principal, double interestRate, int loanTerm) {
         double monthlyInterestRate = interestRate / (paymentFrequency * 100);
         int numberOfPayments = loanTerm * paymentFrequency;
-        double emi = (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
+        return (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments))
                 / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
-        return emi;
     }
 }

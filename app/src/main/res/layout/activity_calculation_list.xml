@@ -37,7 +37,7 @@
         android:layout_marginBottom="6dp"
         android:padding="20dp"
         android:text="@string/Previous_pgBtn"
-        android:textColor="#ED1515"
+        android:textColor="#FF9E80"
         android:textSize="20sp"
 
         tools:ignore="VisualLintButtonSize" />
