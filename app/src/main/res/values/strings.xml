@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">EmiCalculator</string>
+    <string name="two_wheeler">Two Wheeler</string>
+    <string name="emi_calculator">EMI CALCULATOR</string>
+    <string name="four_wheeler">Four Wheeler</string>
+    <string name="home_loan">Home Loan</string>
+    <string name="continueBtn">Continue</string>
+    <string name="rate_of_interest_of_all_banks">Rate of Interest of All Banks</string>
+    <string name="next_page">Next Page</string>
+    <string name="previous_page">Previous Page</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="interest_rate">Interest Rate</string>
+    <string name="year">Year</string>
+    <string name="loan_term">Loan Term</string>
+    <string name="monthly">Monthly</string>
+    <string name="quarterly">Quarterly</string>
+    <string name="half_yearly">Half Yearly</string>
+    <string name="yearly">Yearly</string>
+    <string name="previous_Page">Previous Page</string>
+    <string name="calculate">Calculate</string>
+    <string name="your_emi_will_appear_here">Your EMI will appear here.</string>
+    <string name="history">History</string>
+    <string name="Previous_pgBtn">Previous_Page</string>
+</resources>
